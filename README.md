@@ -44,7 +44,7 @@ npm run dev
 
 ## 🛠️ Tecnologias
 
-* [Next.js](https://vercel.com/home?utm_source=next-site&utm_medium=banner& utm_campaign=docs_15_app_getting-started) - Biblioteca para interfaces de usuário        
+* [Next.js](https://nextjs.org) - Biblioteca para interfaces de usuário        
 * [Typescript](https://www.typescriptlang.org/) - Sintaxe para tipos  
 
 ---
