@@ -1,6 +1,9 @@
 import { Inter, PT_Sans_Caption } from "next/font/google";
 
-import { Header } from "@/components/header";
+import { HeroSection } from "@/components/hero-section";
+import { FeatureSection } from "@/components/feature-section";
+import { SupportSection } from "@/components/support-section";
+import { CustomerStoreSection } from "@/components/customer-store-section";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,8 +16,13 @@ const PTSansCaption = PT_Sans_Caption({
 
 export default function Home() {
   return (
-    <div
-      className={`${inter.className} ${PTSansCaption.className} grid-rows-[20px, 1fr, 20px] items-center justify-items-center min-h-screen`}
-    ></div>
+    <article
+      className={`${inter.className} ${PTSansCaption.className} flex flex-col`}
+    >
+      <HeroSection/>
+      <FeatureSection/>
+      <SupportSection/>
+      <CustomerStoreSection/>
+    </article>
   );
 }
