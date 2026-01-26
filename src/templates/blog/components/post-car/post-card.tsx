@@ -5,7 +5,7 @@ export function PostCard() {
   return (
     <Link
       href="/blog/"
-      className="max-w-[23rem] rounded-xl bg-gray-600 border border-gray-400
+      className="max-w-xl rounded-xl bg-gray-600 border border-gray-400
         transition-all duration-200 hover:border-blue-300 p-2 group"
     >
       <div className="rounded-md space-y-3">

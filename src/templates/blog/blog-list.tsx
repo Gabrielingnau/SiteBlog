@@ -1,5 +1,6 @@
 import { Search } from "@/components/Search/search";
 import { PostCard } from "./components/post-car";
+import { PostGridCard } from "./components/post-grid-card";
 
 export function BlogList() {
   return (
@@ -18,12 +19,12 @@ export function BlogList() {
             <Search/>
           </div>
         </div>
-        <div className="sm:mt-14 mt-6 flex flex-wrap sm:gap-6 gap-4">
-            <PostCard/>
-            <PostCard/>
-            <PostCard/>
-            <PostCard/>
-        </div>
+        <PostGridCard>
+          <PostCard/>
+          <PostCard/>
+          <PostCard/>
+          <PostCard/>
+        </PostGridCard>
       </div>
     </div>
   );
