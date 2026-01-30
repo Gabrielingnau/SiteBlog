@@ -63,8 +63,7 @@ export function PostCard({
               <Avatar.Image
                 alt={title}
                 src={author.avatar}
-                width={20}
-                height={20}
+                size="xs"
               />
               <Avatar.Description>{author.name}</Avatar.Description>
             </Avatar.Container>

@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 
 import { Avatar } from "@/components/avatar";
 import { Markdown } from "@/components/markdown";
+import { Button } from "@/components/ui/button";
+import { useShare } from "@/hooks";
 
 export default function PostPage() {
   const router = useRouter();
@@ -20,6 +22,13 @@ export default function PostPage() {
   const post = allPosts.find(
     (post) => post.slug.toLocaleLowerCase() === slug.toLocaleLowerCase(),
   );
+
+  const postUrl = `https://site.set/blog/${slug}`
+  const {shareButtons} = useShare({
+    url:postUrl,
+    title: post?.title,
+    text: post?.description
+  })
   return (
     <main className="py-10 sm:py-20 mt-7 sm:mt-8">
       <div className="mx-auto px-4 sm:px-6 max-w-screen-standard">
@@ -39,9 +48,9 @@ export default function PostPage() {
           </BreadcrumbList>
         </Breadcrumb>
 
-        <div className="grid grid-cols-1 lg: grid-col-[1fr_300px] gap-6 lg:gap-12 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-12 mt-8">
           <article className="bg-gray-600 rounded-lg overflow-hidden border-gray-400 border-[1px]">
-            <figure className="relative aspect-[16/10] w-full overflow-hidden rounded-lg">
+            <figure className="relative aspect-[16/7] w-full overflow-hidden rounded-lg">
               <Image
                 alt={post?.title ?? "Imagem do Post"}
                 src={post?.image ?? ""}
@@ -59,8 +68,7 @@ export default function PostPage() {
                 <Avatar.Image
                   alt={post?.title ?? "Úsuario"}
                   src={post?.author.avatar ?? ""}
-                  width={36}
-                  height={36}
+                  size="sm"
                 />
                 <Avatar.Content>
                   <Avatar.Title>{post?.author.name}</Avatar.Title>
@@ -72,10 +80,25 @@ export default function PostPage() {
               </Avatar.Container>
             </header>
 
-            <div className="px-4 mt-12 md:px-6 lg:px-16">
-              <Markdown content={post?.body.raw ?? ''}/>
+            <div className="px-4 mt-8 md:px-6 lg:px-16">
+              <Markdown content={post?.body.raw ?? ""} />
             </div>
           </article>
+
+          <aside className="space-y-6">
+            <div className="px-4 md:px-6">
+              <h2 className="mb-4 text-xs text-gray-100">Compartilhar</h2>
+
+              <div className="space-y-3">
+                {shareButtons.map((provider) => (
+                  <Button onClick={() => provider.action()} variant="outline" className="w-full justify-start gap-2" key={provider.provider}>
+                    {provider.icon}
+                    {provider.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </main>
