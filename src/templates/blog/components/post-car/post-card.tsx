@@ -37,13 +37,15 @@ export function PostCard({
             <span className="text-body-xs text-gray-300">{date}</span>
           </div>
 
-          <Image
-            alt="Imagem do post"
-            src={image}
-            width={288}
-            height={144}
-            className="object-cover w-full h-40 object-center rounded-md"
-          />
+          {image && (
+            <Image
+              alt="Imagem do post"
+              src={image}
+              width={288}
+              height={144}
+              className="object-cover w-full h-40 object-center rounded-md"
+            />
+          )}
         </div>
 
         <div className="p-2 flex flex-col items-start h-full justify-between gap-3">
@@ -60,11 +62,9 @@ export function PostCard({
            group-hover:border-blue-300 transition-colors duration-200 pt-3 gap-2"
           >
             <Avatar.Container>
-              <Avatar.Image
-                alt={title}
-                src={author.avatar}
-                size="xs"
-              />
+              {author.avatar && (
+                <Avatar.Image alt={title} src={author.avatar} size="xs" />
+              )}
               <Avatar.Description>{author.name}</Avatar.Description>
             </Avatar.Container>
           </div>

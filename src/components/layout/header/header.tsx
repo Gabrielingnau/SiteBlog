@@ -1,18 +1,17 @@
 import Link from "next/link";
 
-import { Button } from "../../ui/button";
-import { ActiveLink } from "../active-link";
-import { Logo } from "../../logo";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+
+import { Button } from "../../ui/button";
+import { Logo } from "../../logo";
+import { ActiveLink } from "../active-link";
 
 export function Header() {
   return (
     <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-transparent backdrop-blur ">
       <div className="mx-auto px-4 sm:px-6 max-w-screen-standard">
         <div className="flex items-center justify-between w-full h-16">
-          <Logo/>
-          
+          <Logo />
 
           <nav className="flex items-center gap-6">
             <ActiveLink href="/">Inicio</ActiveLink>

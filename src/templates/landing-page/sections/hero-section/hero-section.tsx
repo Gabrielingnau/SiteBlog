@@ -1,8 +1,6 @@
-import { ArrowRight, Clock, Store } from "lucide-react";
+import { Clock, Store } from "lucide-react";
 import Image from "next/image";
 
-import { Button } from "../../../../components/ui/button";
-import Link from "next/link";
 import { StoreFree } from "../../../../components/store-free";
 
 export function HeroSection() {

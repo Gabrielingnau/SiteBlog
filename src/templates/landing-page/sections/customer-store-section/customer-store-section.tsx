@@ -1,4 +1,3 @@
-import { PaintbrushVertical } from "lucide-react";
 import Image from "next/image";
 
 const customersStore = [
@@ -32,10 +31,13 @@ export function CustomerStoreSection() {
           </h2>
         </div>
         <div className="w-full flex flex-col md:flex-row gap-6 md:mt-12 mt-8">
-          {customersStore.map((customerStore) => {
+          {customersStore.map((customerStore, index) => {
             return (
-              <div className="w-full p-10 flex flex-col items-start justify-center gap-10 bg-gray-600 rounded-xl">
-                <p className="text-gray-200 text-body-md">
+              <div
+                key={index}
+                className="w-full p-10 flex flex-col items-start justify-between gap-10 bg-gray-600 rounded-xl"
+              >
+                <p className="text-gray-200 text-body-md line-clamp-6">
                   {customerStore.content}
                 </p>
                 <div className="flex items-center justify-center gap-3">

@@ -1,4 +1,4 @@
-import { allPosts, Post } from "contentlayer/generated";
+import { Post } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
 import { Inbox } from "lucide-react";
 import { useRouter } from "next/router";
@@ -8,17 +8,21 @@ import { Search } from "@/components/Search";
 import { PostCard } from "./components/post-car";
 import { PostGridCard } from "./components/post-grid-card";
 
-export function BlogList() {
+export type BlogListProps = {
+  posts: Post[];
+};
+
+export function BlogList({ posts }: BlogListProps) {
   const router = useRouter();
   const query = (router.query.q as string) || "";
 
-  const posts = query
-    ? allPosts.filter((post) =>
+  const postList = query
+    ? posts.filter((post) =>
         post.title.toLocaleLowerCase()?.includes(query.toLocaleLowerCase()),
       )
-    : allPosts;
+    : posts;
 
-  const hasPosts = posts.length > 0;
+  const hasPosts = postList.length > 0;
   return (
     <div className="py-10 sm:py-20 mt-7 sm:mt-8">
       <div className="mx-auto px-4 sm:px-6 max-w-screen-standard">
@@ -37,8 +41,9 @@ export function BlogList() {
         </div>
         {hasPosts && (
           <PostGridCard>
-            {posts.map((post) => (
+            {postList.map((post) => (
               <PostCard
+                key={post.slug}
                 author={{
                   name: post.author?.name,
                   avatar: post.author?.avatar,
