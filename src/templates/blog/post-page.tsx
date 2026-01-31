@@ -15,18 +15,14 @@ import { Markdown } from "@/components/markdown";
 import { Button } from "@/components/ui/button";
 import { useShare } from "@/hooks";
 
+import { PostShare } from "./components/post-share/post-share";
+
 export type PostPageProps = {
   post: Post;
 };
 
 export function PostPage({ post }: PostPageProps) {
   const postUrl = `https://site.set/blog/${post.slug}`;
-
-  const { shareButtons } = useShare({
-    url: postUrl,
-    title: post.title,
-    text: post.description,
-  });
 
   const hasCover = Boolean(post.image);
   const hasAvatar = Boolean(post.author?.avatar);
@@ -97,28 +93,11 @@ export function PostPage({ post }: PostPageProps) {
               {post.body?.raw && <Markdown content={post.body.raw} />}
             </div>
           </article>
-
-          <aside className="space-y-6">
-            <div className="px-4 lg:px-6">
-              <h2 className="hidden lg:block mb-4 text-xs text-gray-100">
-                Compartilhar
-              </h2>
-
-              <div className="flex justify-between sm:justify-start lg:flex-col gap-2 sm:gap-4">
-                {shareButtons.map((provider) => (
-                  <Button
-                    key={provider.provider}
-                    onClick={provider.action}
-                    variant="outline"
-                    className="w-fit lg:w-full justify-start gap-2 rounded-lg"
-                  >
-                    {provider.icon}
-                    <span className="hidden lg:block">{provider.name}</span>
-                  </Button>
-                ))}
-              </div>
-            </div>
-          </aside>
+          <PostShare
+            url={postUrl}
+            title={post.title}
+            description={post.description}
+          />
         </div>
       </div>
     </main>

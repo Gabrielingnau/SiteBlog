@@ -1,7 +1,8 @@
+"use client";
 import { Post } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
 import { Inbox } from "lucide-react";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 import { Search } from "@/components/Search";
 
@@ -13,8 +14,8 @@ export type BlogListProps = {
 };
 
 export function BlogList({ posts }: BlogListProps) {
-  const router = useRouter();
-  const query = (router.query.q as string) || "";
+  const searchParams = useSearchParams();
+  const query = searchParams?.get("q") ?? "";
 
   const postList = query
     ? posts.filter((post) =>

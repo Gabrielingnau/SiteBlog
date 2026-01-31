@@ -1,19 +1,16 @@
+"use client";
 import { CircleX, SearchIcon } from "lucide-react";
-import { useRouter } from "next/router";
-import { useCallback, useRef, useState } from "react";
-import clsx from "clsx";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useRef } from "react";
+
+import { cn } from "@/lib/utils";
 
 export function Search() {
   const router = useRouter();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const [query, setQuery] = useState(
-    (router.query.q as string) || ""
-  );
-
-  const [isFocused, setIsFocused] = useState(false);
-
-  const hasText = query.length > 0;
+  const searchParams = useSearchParams();
+  const query = searchParams?.get("q") ?? "";
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const hasQuery = searchParams?.has("q");
 
   const handleSearch = useCallback(
     (event: React.FormEvent) => {
@@ -23,70 +20,58 @@ export function Search() {
 
       router.push(`/blog?q=${encodeURIComponent(query)}`);
     },
-    [query, router]
+    [query, router],
   );
 
   const handleQueryChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const newQuery = event.target.value;
 
-      setQuery(newQuery);
-
       router.push(
-        newQuery.trim()
-          ? `/blog?q=${encodeURIComponent(newQuery)}`
-          : "/blog",
-        undefined,
-        { shallow: true, scroll: false }
+        newQuery.trim() ? `/blog?q=${encodeURIComponent(newQuery)}` : "/blog",
+        { scroll: false },
       );
     },
-    [router]
+    [router],
   );
 
   const resetSearch = useCallback(() => {
-    setQuery("");
-
-    router.push("/blog", undefined, {
-      shallow: true,
+    router.push("/blog", {
       scroll: false,
     });
 
     inputRef.current?.focus();
   }, [router]);
 
+  useEffect(() => {
+    if (hasQuery) {
+      inputRef.current?.focus();
+    }
+  }, [hasQuery]);
+
   return (
-    <form onSubmit={handleSearch} className="relative group md:w-72 w-full">
+    <form onSubmit={handleSearch} className="relative group w-full">
       <SearchIcon
-        className={clsx(
-          "w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200",
-          isFocused || hasText ? "text-blue-300" : "text-gray-300"
+        className={cn(
+          "text-gray-300 absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors duration-200 group-focus-within:text-blue-300",
+          query ? "text-blue-300" : "",
         )}
       />
 
       <input
         ref={inputRef}
         type="text"
-        value={query}
         placeholder="Buscar"
+        value={query}
         onChange={handleQueryChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        className={clsx(
-          "h-10 md:w-72 w-full bg-transparent border rounded-md pl-9 pr-9 text-gray-100",
-          "outline-none transition-all duration-200 placeholder:text-gray-300",
-          "border-gray-400",
-          isFocused && "border-blue-300 ring-1 ring-blue-300"
-        )}
+        className="w-full h-10 bg-transparent border border-gray-400 pl-9 text-gray-100 rounded text-body-sm outline-none transition-all duration-200 focus-within:border-blue-300 focus-within:ring-1 focus-within:ring-blue-300 placeholder:text-gray-300 placeholder:text-body-sm"
       />
 
-      {hasText && (
-        <button
-          type="button"
+      {query && (
+        <CircleX
+          className="absolute w-4 h-4 top-1/2 -translate-y-1/2 right-3 text-gray-300"
           onClick={resetSearch}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white transition-colors duration-200"
-        >
-          <CircleX size={16} />
-        </button>
+        />
       )}
     </form>
   );
