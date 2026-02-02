@@ -1,4 +1,4 @@
-# [TypeWeather(Link)](https://gabrielingnau.github.io/TypeWeather)
+# [SiteBlog(Link)](https://gabrielingnau.github.io/TypeWeather)
 
 SiteBlog é uma landing page.
 
