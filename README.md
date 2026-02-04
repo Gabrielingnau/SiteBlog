@@ -9,7 +9,7 @@ Também configurei metadados e otimizações de SEO para melhorar indexação e 
 O layout da aplicação está disponível no Figma:
 
 <a href="https://www.figma.com/design/7MfrYiuzC6d6oM53rjy1rd/Landing-Page-e-Blog--Community-?node-id=3-377&p=f&t=WAY6jrJu6NhUn0QU-0">
-  <img alt="Demonstração do projeto" src="/og-image.jpg">
+  <img alt="Demonstração do projeto" src="./public/og-image.jpg">
 </a>
 
 ## 🚀 Começando
